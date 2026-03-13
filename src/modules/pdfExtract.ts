@@ -76,7 +76,6 @@ async function extractTextFromAttachment(
 ): Promise<string> {
   // Method 1: Use Zotero.PDFWorker.getFullText with attachment ID
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ZoteroAny = Zotero as any;
     if (ZoteroAny.PDFWorker && ZoteroAny.PDFWorker.getFullText) {
       ztoolkit.log(`Trying PDFWorker.getFullText with ID: ${attachmentID}`);
@@ -94,7 +93,6 @@ async function extractTextFromAttachment(
 
   // Method 2: Use Zotero.Fulltext.getTextFromDocument
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ZoteroAny = Zotero as any;
     if (ZoteroAny.Fulltext && ZoteroAny.Fulltext.getItemContent) {
       ztoolkit.log(`Trying Fulltext.getItemContent with ID: ${attachmentID}`);
@@ -109,7 +107,6 @@ async function extractTextFromAttachment(
 
   // Method 3: Try reading cached full-text index
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ZoteroAny = Zotero as any;
     if (ZoteroAny.Fulltext) {
       ztoolkit.log(`Trying to get cached fulltext for ID: ${attachmentID}`);
@@ -145,7 +142,7 @@ async function readPdfWithIOUtils(filePath: string): Promise<string | null> {
     const data = await IOUtils.read(filePath);
 
     // Try to use Zotero's PDF.js
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const pdfjsLib = (globalThis as any).pdfjsLib as
       | {
           getDocument: (opts: { data: Uint8Array }) => {
@@ -233,7 +230,7 @@ export function getCitationKey(item: Zotero.Item): string {
     }
 
     // Method 2: Try Better BibTeX API as fallback
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const ZoteroAny = Zotero as any;
     if (ZoteroAny.BetterBibTeX?.KeyManager?.get) {
       const result = ZoteroAny.BetterBibTeX.KeyManager.get(item.id);

@@ -105,6 +105,7 @@ export async function generateSummary(
     ztoolkit.log(`Failed to parse response: ${content}`);
     throw new Error(
       `Failed to parse API response: ${e instanceof Error ? e.message : "Unknown error"}`,
+      { cause: e },
     );
   }
 }
@@ -133,7 +134,9 @@ export async function fetchModels(apiKey: string): Promise<GrokModel[]> {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Failed to fetch models: ${response.status} - ${errorText}`);
+    throw new Error(
+      `Failed to fetch models: ${response.status} - ${errorText}`,
+    );
   }
 
   const data = (await response.json()) as unknown as { data: GrokModel[] };

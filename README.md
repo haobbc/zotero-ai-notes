@@ -40,6 +40,7 @@ Generate AI-powered structured summaries for academic papers in Zotero using the
 ### Generated Summary Structure
 
 Each summary note includes:
+
 - **Research Purpose** (研究目的)
 - **Methodology** (研究方法)
 - **Key Contributions** (主要貢獻)

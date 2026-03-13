@@ -109,7 +109,7 @@ function formatAsHtmlList(text: string | string[]): string {
   const items = lines
     .map((line) => {
       // Remove bullet points and numbers at the start
-      const cleaned = line.replace(/^[\s\-\*\d\.]+/, "").trim();
+      const cleaned = line.replace(/^[\s\-*\d.]+/, "").trim();
       return `<li>${escapeHtml(cleaned)}</li>`;
     })
     .join("\n");

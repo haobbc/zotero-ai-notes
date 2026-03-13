@@ -31,19 +31,19 @@ prefsPrefix:  extensions.zotero.zoteroainotes
 
 ## File Roles
 
-| File | Role |
-|------|------|
-| `addon/bootstrap.js` | Zotero lifecycle entry (install/startup/shutdown) |
-| `src/index.ts` | Create Addon instance, mount globals |
-| `src/hooks.ts` | Lifecycle dispatcher (startup → init, prefs, menu) |
-| `src/modules/menu.ts` | Right-click menu + processing coordinator |
-| `src/modules/pdfExtract.ts` | PDF text extraction (4 fallback methods) |
-| `src/modules/grokApi.ts` | Grok API HTTP calls + model listing |
-| `src/modules/prompts.ts` | LLM prompt templates + HTML formatting |
-| `src/modules/noteCreator.ts` | Zotero note CRUD with auto-generated tags |
-| `src/modules/preferenceScript.ts` | Prefs pane: dynamic model dropdown |
-| `src/utils/locale.ts` | FTL translation loader (addon.ftl only) |
-| `src/utils/prefs.ts` | Preference read/write helpers |
+| File                              | Role                                               |
+| --------------------------------- | -------------------------------------------------- |
+| `addon/bootstrap.js`              | Zotero lifecycle entry (install/startup/shutdown)  |
+| `src/index.ts`                    | Create Addon instance, mount globals               |
+| `src/hooks.ts`                    | Lifecycle dispatcher (startup → init, prefs, menu) |
+| `src/modules/menu.ts`             | Right-click menu + processing coordinator          |
+| `src/modules/pdfExtract.ts`       | PDF text extraction (4 fallback methods)           |
+| `src/modules/grokApi.ts`          | Grok API HTTP calls + model listing                |
+| `src/modules/prompts.ts`          | LLM prompt templates + HTML formatting             |
+| `src/modules/noteCreator.ts`      | Zotero note CRUD with auto-generated tags          |
+| `src/modules/preferenceScript.ts` | Prefs pane: dynamic model dropdown                 |
+| `src/utils/locale.ts`             | FTL translation loader (addon.ftl only)            |
+| `src/utils/prefs.ts`              | Preference read/write helpers                      |
 
 ## Build & Dev
 

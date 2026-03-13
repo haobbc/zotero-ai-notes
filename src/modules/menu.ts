@@ -159,20 +159,22 @@ async function processItem(
   }
 
   // Try to extract PDF text
-  let text: string | null = null;
-  let sourceType: "pdf" | "abstract" = "abstract";
+  const pdfText = await extractPdfText(item);
 
-  text = await extractPdfText(item);
+  let text: string;
+  let sourceType: "pdf" | "abstract";
 
-  if (text && text.trim().length > 100) {
+  if (pdfText && pdfText.trim().length > 100) {
+    text = pdfText;
     sourceType = "pdf";
     ztoolkit.log(`Using PDF text (${text.length} chars)`);
   } else {
     // Fallback to abstract
-    text = getAbstract(item);
-    if (!text) {
+    const abstract = getAbstract(item);
+    if (!abstract) {
       throw new Error("No PDF or abstract available");
     }
+    text = abstract;
     sourceType = "abstract";
     ztoolkit.log(`Using abstract (${text.length} chars)`);
   }
