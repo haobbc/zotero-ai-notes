@@ -8,6 +8,7 @@ export type FluentMessageId =
   | 'pref-api-key'
   | 'pref-help'
   | 'pref-model'
+  | 'pref-provider'
   | 'pref-refresh-models'
   | 'pref-title'
   | 'prefs-title'

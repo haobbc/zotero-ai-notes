@@ -7,7 +7,12 @@
 declare namespace _ZoteroTypes {
   interface Prefs {
     PluginPrefsMap: {
-      "apiKey": string;
+      "provider": string;
+      "apiKeyGrok": string;
+      "apiKeyOpenai": string;
+      "apiKeyAnthropic": string;
+      "apiKeyGemini": string;
+      "apiKeyOllama": string;
       "model": string;
     };
   }
