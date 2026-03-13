@@ -3,10 +3,12 @@
 /* eslint-disable */
 // @ts-nocheck
 export type FluentMessageId =
+  | 'generate-summary-label'
   | 'menuitem-label'
   | 'pref-api-key'
   | 'pref-help'
   | 'pref-model'
+  | 'pref-refresh-models'
   | 'pref-title'
   | 'prefs-title'
   | 'startup-begin'

@@ -113,9 +113,8 @@ async function extractTextFromAttachment(
     const ZoteroAny = Zotero as any;
     if (ZoteroAny.Fulltext) {
       ztoolkit.log(`Trying to get cached fulltext for ID: ${attachmentID}`);
-      const indexedContent = await ZoteroAny.Fulltext.getItemContent(
-        attachmentID,
-      );
+      const indexedContent =
+        await ZoteroAny.Fulltext.getItemContent(attachmentID);
       if (indexedContent && indexedContent.content) {
         return indexedContent.content;
       }
@@ -143,16 +142,17 @@ async function extractTextFromAttachment(
  */
 async function readPdfWithIOUtils(filePath: string): Promise<string | null> {
   try {
-    // @ts-expect-error - IOUtils is available in Zotero 7
     const data = await IOUtils.read(filePath);
 
     // Try to use Zotero's PDF.js
-    // @ts-expect-error - Zotero includes pdf.js
-    const pdfjsLib =
-      // @ts-expect-error
-      globalThis.pdfjsLib ||
-      // @ts-expect-error
-      (await import("resource://zotero/reader/pdf/build/pdf.mjs"));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pdfjsLib = (globalThis as any).pdfjsLib as
+      | {
+          getDocument: (opts: { data: Uint8Array }) => {
+            promise: Promise<any>;
+          };
+        }
+      | undefined;
 
     if (!pdfjsLib || !pdfjsLib.getDocument) {
       ztoolkit.log("pdf.js not available");
@@ -225,31 +225,21 @@ export function getTitle(item: Zotero.Item): string {
  */
 export function getCitationKey(item: Zotero.Item): string {
   try {
-    // Method 1: Try Better BibTeX API directly
-    // The correct property is 'citationKey', not 'citekey'
+    // Method 1: Use Zotero's native citationKey field (Zotero 8+)
+    const nativeKey = item.getField("citationKey") as string;
+    if (nativeKey && nativeKey.trim().length > 0) {
+      ztoolkit.log(`Got native citation key: ${nativeKey}`);
+      return nativeKey.trim();
+    }
+
+    // Method 2: Try Better BibTeX API as fallback
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ZoteroAny = Zotero as any;
     if (ZoteroAny.BetterBibTeX?.KeyManager?.get) {
-      ztoolkit.log(`Trying BBT KeyManager.get with item.id: ${item.id}`);
       const result = ZoteroAny.BetterBibTeX.KeyManager.get(item.id);
-      ztoolkit.log(`BBT KeyManager result: ${JSON.stringify(result)}`);
       if (result && result.citationKey) {
-        ztoolkit.log(`Got citation key from BBT API: ${result.citationKey}`);
+        ztoolkit.log(`Got citation key from BBT: ${result.citationKey}`);
         return result.citationKey;
-      }
-    } else {
-      ztoolkit.log(`BBT KeyManager not available`);
-    }
-
-    // Method 2: Try to get citation key from extra field (Better BibTeX format)
-    const extra = item.getField("extra") as string;
-    if (extra) {
-      ztoolkit.log(`Extra field content: ${extra.substring(0, 100)}...`);
-      // Better BibTeX stores it as "Citation Key: xxx" on its own line
-      const match = extra.match(/^Citation Key:\s*(.+)$/im);
-      if (match) {
-        ztoolkit.log(`Got citation key from extra field: ${match[1].trim()}`);
-        return match[1].trim();
       }
     }
 

@@ -4,7 +4,8 @@
 
 import { SUMMARY_PROMPT, SYSTEM_MESSAGE, PaperSummary } from "./prompts";
 
-const GROK_API_URL = "https://api.x.ai/v1/chat/completions";
+const GROK_API_BASE = "https://api.x.ai/v1";
+const GROK_API_URL = `${GROK_API_BASE}/chat/completions`;
 
 /**
  * API response type
@@ -106,6 +107,37 @@ export async function generateSummary(
       `Failed to parse API response: ${e instanceof Error ? e.message : "Unknown error"}`,
     );
   }
+}
+
+/**
+ * Model info from the API
+ */
+export interface GrokModel {
+  id: string;
+  owned_by?: string;
+}
+
+/**
+ * Fetch available models from the Grok API
+ *
+ * @param apiKey - Grok API key
+ * @returns Array of model objects
+ */
+export async function fetchModels(apiKey: string): Promise<GrokModel[]> {
+  const response = await fetch(`${GROK_API_BASE}/models`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Failed to fetch models: ${response.status} - ${errorText}`);
+  }
+
+  const data = (await response.json()) as unknown as { data: GrokModel[] };
+  return data.data || [];
 }
 
 /**

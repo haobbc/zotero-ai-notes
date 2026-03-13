@@ -20,6 +20,9 @@ async function onStartup() {
     image: `chrome://${addon.data.config.addonRef}/content/icons/favicon.png`,
   });
 
+  // Register context menu (global, only once)
+  registerMenu();
+
   await Promise.all(
     Zotero.getMainWindows().map((win) => onMainWindowLoad(win)),
   );
@@ -29,12 +32,9 @@ async function onStartup() {
   addon.data.initialized = true;
 }
 
-async function onMainWindowLoad(win: _ZoteroTypes.MainWindow): Promise<void> {
+async function onMainWindowLoad(_win: _ZoteroTypes.MainWindow): Promise<void> {
   // Create ztoolkit for every window
   addon.data.ztoolkit = createZToolkit();
-
-  // Register context menu
-  registerMenu();
 
   // Show startup notification
   new ztoolkit.ProgressWindow(addon.data.config.addonName, {
