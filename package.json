@@ -1,8 +1,8 @@
 {
   "name": "zotero-ai-notes",
   "type": "module",
-  "version": "1.1.0",
-  "description": "Generate AI-powered summaries for Zotero papers using Grok API",
+  "version": "1.2.0",
+  "description": "Generate AI-powered summaries for Zotero papers with multiple LLM providers",
   "config": {
     "addonName": "Zotero AI Notes",
     "addonID": "zotero-ai-notes@paper-ai.local",

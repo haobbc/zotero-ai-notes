@@ -8,13 +8,32 @@
 
   <hbox align="center">
     <html:label
+      for="zotero-prefpane-__addonRef__-provider"
+      data-l10n-id="pref-provider"
+    ></html:label>
+    <menulist
+      id="zotero-prefpane-__addonRef__-provider"
+      preference="provider"
+      style="margin-left: 8px; flex: 1"
+    >
+      <menupopup>
+        <menuitem label="Grok (xAI)" value="grok" />
+        <menuitem label="OpenAI" value="openai" />
+        <menuitem label="Anthropic (Claude)" value="anthropic" />
+        <menuitem label="Gemini (Google)" value="gemini" />
+        <menuitem label="Ollama (Local)" value="ollama" />
+      </menupopup>
+    </menulist>
+  </hbox>
+
+  <hbox align="center" style="margin-top: 12px">
+    <html:label
       for="zotero-prefpane-__addonRef__-apiKey"
       data-l10n-id="pref-api-key"
     ></html:label>
     <html:input
       type="password"
       id="zotero-prefpane-__addonRef__-apiKey"
-      preference="apiKey"
       style="flex: 1; margin-left: 8px"
     ></html:input>
   </hbox>
