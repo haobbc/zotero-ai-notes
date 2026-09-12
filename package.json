@@ -1,7 +1,7 @@
 {
   "name": "zotero-ai-notes",
   "type": "module",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Generate AI-powered summaries for Zotero papers with multiple LLM providers",
   "config": {
     "addonName": "Zotero AI Notes",

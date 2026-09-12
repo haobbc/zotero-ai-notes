@@ -2,12 +2,8 @@
  * Context menu registration and handling
  */
 
-import {
-  extractPdfText,
-  getAbstract,
-  getTitle,
-  getCitationKey,
-} from "./pdfExtract";
+import { extractPdfText, getAbstract, getTitle } from "./pdfExtract";
+import { getCitationKey } from "../utils/citationKey";
 import { generateSummary } from "./llmApi";
 import {
   createSummaryNote,

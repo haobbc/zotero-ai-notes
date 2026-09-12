@@ -214,37 +214,4 @@ export function getTitle(item: Zotero.Item): string {
   return "Untitled";
 }
 
-/**
- * Get citation key from a Zotero item
- *
- * @param item - Zotero item
- * @returns Citation key or item key
- */
-export function getCitationKey(item: Zotero.Item): string {
-  try {
-    // Method 1: Use Zotero's native citationKey field (Zotero 8+)
-    const nativeKey = item.getField("citationKey") as string;
-    if (nativeKey && nativeKey.trim().length > 0) {
-      ztoolkit.log(`Got native citation key: ${nativeKey}`);
-      return nativeKey.trim();
-    }
-
-    // Method 2: Try Better BibTeX API as fallback
-
-    const ZoteroAny = Zotero as any;
-    if (ZoteroAny.BetterBibTeX?.KeyManager?.get) {
-      const result = ZoteroAny.BetterBibTeX.KeyManager.get(item.id);
-      if (result && result.citationKey) {
-        ztoolkit.log(`Got citation key from BBT: ${result.citationKey}`);
-        return result.citationKey;
-      }
-    }
-
-    // Fallback to Zotero item key
-    ztoolkit.log(`Using Zotero item key as fallback: ${item.key}`);
-    return item.key;
-  } catch (e) {
-    ztoolkit.log(`Error getting citation key: ${e}`);
-    return item.key;
-  }
-}
+export { getCitationKey } from "../utils/citationKey";
