@@ -18,7 +18,7 @@
 - **Menu labels:** MenuManager `l10nID` cannot resolve plugin FTL files. Use `onShowing` + `context.menuElem.setAttribute("label", ...)` instead.
 - **ProgressWindow:** `createLine()` returns `this` (chainable). Use `changeLine({ idx })` to update a specific line.
 - **i18n:** Only `addon.ftl` is loaded by `initLocale()`. Put all runtime strings there. `mainWindow.ftl` and `preferences.ftl` are for XHTML `data-l10n-id` only.
-- **Citation keys:** Zotero 8 has native `citationKey` field: `item.getField("citationKey")`. Better BibTeX is fallback only.
+- **Citation keys:** Prefer native `citationKey` / `citationkey` (`item.getField` or item JSON). Extra-field and Better BibTeX are fallbacks only. See `src/utils/citationKey.ts`.
 
 ## Config (package.json)
 
@@ -42,6 +42,7 @@ prefsPrefix:  extensions.zotero.zoteroainotes
 | `src/modules/prompts.ts`          | LLM prompt templates + HTML formatting             |
 | `src/modules/noteCreator.ts`      | Zotero note CRUD with auto-generated tags          |
 | `src/modules/preferenceScript.ts` | Prefs pane: dynamic model dropdown                 |
+| `src/utils/citationKey.ts`        | Native citationKey lookup + Extra/BBT fallbacks    |
 | `src/utils/locale.ts`             | FTL translation loader (addon.ftl only)            |
 | `src/utils/prefs.ts`              | Preference read/write helpers                      |
 
