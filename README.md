@@ -1,6 +1,6 @@
 # Zotero AI Notes
 
-[![zotero target version](https://img.shields.io/badge/Zotero-8-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
+[![zotero target version](https://img.shields.io/badge/Zotero-8%2B%20%2F%2010-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
 [![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0)
 
@@ -14,7 +14,7 @@ Generate AI-powered structured summaries for academic papers in Zotero using the
 - **Batch Processing** - Select multiple papers and generate summaries for all at once
 - **Smart Deduplication** - Skips papers that already have PDF-based summaries
 - **Dynamic Model Selection** - Fetches available models from the Grok API in preferences
-- **Native Citation Keys** - Uses Zotero 8's built-in `citationKey` field with Better BibTeX fallback
+- **Native Citation Keys** - Uses Zotero 10/8's built-in `citationKey` field (also accepts `citationkey`), then Extra-field and Better BibTeX fallbacks
 - **Bilingual** - English and Traditional Chinese (zh-TW) localization
 
 ## Installation
@@ -51,7 +51,7 @@ Notes are tagged with `auto-generated` and `source:pdf` or `source:abstract`.
 
 ## Requirements
 
-- **Zotero 8+** (tested with Zotero 8.0.x)
+- **Zotero 8+** (compatible through Zotero 10; uses the native `citationKey` field when present)
 - **Grok API key** from [xAI](https://console.x.ai/)
 
 ## Development
